@@ -23,11 +23,11 @@ class Database
             }
         }
 
-        $this->host = $_ENV["DB_HOST"] ?? "127.0.0.1";
-        $this->db_name = $_ENV["DB_DATABASE"] ?? "rehab_db";
-        $this->port = $_ENV["DB_PORT"] ?? "3306";
-        $this->username = $_ENV["DB_USERNAME"] ?? "root";
-        $this->password = $_ENV["DB_PASSWORD"] ?? "";
+        $this->host = $_ENV["DB_HOST"];
+        $this->db_name = $_ENV["DB_DATABASE"];
+        $this->port = $_ENV["DB_PORT"];
+        $this->username = $_ENV["DB_USERNAME"];
+        $this->password = $_ENV["DB_PASSWORD"];
     }
 
     public function connect()

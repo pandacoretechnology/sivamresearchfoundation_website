@@ -12,11 +12,10 @@ export default function Dropdown() {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <MenuButton
-        className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm max-sm:text-base font-medium rounded-lg transition-colors ${
-          isServicesActive
+        className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm max-sm:text-base font-medium rounded-lg transition-colors ${isServicesActive
             ? "text-[#32B866] font-semibold"
             : "text-gray-700 hover:text-[#32B866]"
-        }`}
+          }`}
       >
         <span>Services</span>
         <ChevronDownIcon className="h-4 w-4" />
@@ -31,9 +30,8 @@ export default function Dropdown() {
           {({ focus }) => (
             <Link
               href="/services"
-              className={`block px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-emerald-800 border-b border-gray-100 ${
-                focus ? "bg-emerald-50" : "bg-transparent"
-              }`}
+              className={`block px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-emerald-800 border-b border-gray-100 ${focus ? "bg-emerald-50" : "bg-transparent"
+                }`}
             >
               All Services Overview →
             </Link>
@@ -44,13 +42,12 @@ export default function Dropdown() {
           {({ focus }) => (
             <Link
               href="/services/rehabilitation-services"
-              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                pathname === "/services/rehabilitation-services"
+              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/rehabilitation-services"
                   ? "bg-emerald-50 text-[#0F6E57] font-semibold"
                   : focus
-                  ? "bg-gray-50 text-gray-900"
-                  : "text-gray-700"
-              }`}
+                    ? "bg-gray-50 text-gray-900"
+                    : "text-gray-700"
+                }`}
             >
               Rehabilitation Services
             </Link>
@@ -61,13 +58,12 @@ export default function Dropdown() {
           {({ focus }) => (
             <Link
               href="/services/counselling-services"
-              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                pathname === "/services/counselling-services"
+              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/counselling-services"
                   ? "bg-emerald-50 text-[#0F6E57] font-semibold"
                   : focus
-                  ? "bg-gray-50 text-gray-900"
-                  : "text-gray-700"
-              }`}
+                    ? "bg-gray-50 text-gray-900"
+                    : "text-gray-700"
+                }`}
             >
               Counselling Services
             </Link>
@@ -78,13 +74,12 @@ export default function Dropdown() {
           {({ focus }) => (
             <Link
               href="/services/internship-and-training"
-              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                pathname === "/services/internship-and-training"
+              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/internship-and-training"
                   ? "bg-emerald-50 text-[#0F6E57] font-semibold"
                   : focus
-                  ? "bg-gray-50 text-gray-900"
-                  : "text-gray-700"
-              }`}
+                    ? "bg-gray-50 text-gray-900"
+                    : "text-gray-700"
+                }`}
             >
               Internship & Training
             </Link>
@@ -95,15 +90,44 @@ export default function Dropdown() {
           {({ focus }) => (
             <Link
               href="/services/research-and-publication"
-              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                pathname === "/services/research-and-publication"
+              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/research-and-publication"
                   ? "bg-emerald-50 text-[#0F6E57] font-semibold"
                   : focus
-                  ? "bg-gray-50 text-gray-900"
-                  : "text-gray-700"
-              }`}
+                    ? "bg-gray-50 text-gray-900"
+                    : "text-gray-700"
+                }`}
             >
               Research & Publication (IJMHPS)
+            </Link>
+          )}
+        </MenuItem>
+        <MenuItem>
+          {({ focus }) => (
+            <Link
+              href="/services/project"
+              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/project"
+                  ? "bg-emerald-50 text-[#0F6E57] font-semibold"
+                  : focus
+                    ? "bg-gray-50 text-gray-900"
+                    : "text-gray-700"
+                }`}
+            >
+              Project
+            </Link>
+          )}
+        </MenuItem>
+        <MenuItem>
+          {({ focus }) => (
+            <Link
+              href="/services/project"
+              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/project"
+                  ? "bg-emerald-50 text-[#0F6E57] font-semibold"
+                  : focus
+                    ? "bg-gray-50 text-gray-900"
+                    : "text-gray-700"
+                }`}
+            >
+              Project
             </Link>
           )}
         </MenuItem>

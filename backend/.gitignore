@@ -1,2 +1,29 @@
+# Environment / secrets
 .env
-vendor
+.env.*
+!.env.example
+
+# SSL / TLS certificates
+*.pem
+*.key
+*.crt
+*.csr
+ca.pem
+
+# Composer
+/vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp

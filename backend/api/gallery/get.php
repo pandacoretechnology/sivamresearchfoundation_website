@@ -15,6 +15,8 @@ try {
               FROM gallery
               ORDER BY created_at DESC";
 
+    
+
     $stmt = $conn->prepare($query);
     $stmt->execute();
 
@@ -41,7 +43,11 @@ try {
     sendResponse(
         false,
         "Failed to retrieve gallery.",
-        null,
+        [
+            "error" => $e->getMessage(),
+            "file" => $e->getFile(),
+            "line" => $e->getLine()
+        ],
         500
     );
 }

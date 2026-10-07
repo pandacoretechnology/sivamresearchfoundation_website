@@ -302,7 +302,7 @@ export default function DonationContent() {
 
                     <div className="mb-7">
                       <h2 className="text-2xl font-black">
-                        Support Our Mission
+                        Support Our Missions
                       </h2>
                       <p className="mt-1 text-sm text-slate-500">
                         Choose your contribution amount

@@ -90,7 +90,7 @@ export default function Footer() {
                   className="flex items-center gap-2 hover:text-[#0F6E57] transition-colors"
                 >
                   <PhoneIcon className="w-4 h-4 text-[#0F6E57] shrink-0" />
-                  <span>(+91) 9952 9416 14</span>
+                  <span>(+91) 90800 41614</span>
                 </a>
               </li>
               <li>
@@ -99,7 +99,7 @@ export default function Footer() {
                   className="flex items-center gap-2 hover:text-[#0F6E57] transition-colors break-all"
                 >
                   <EnvelopeIcon className="w-4 h-4 text-[#0F6E57] shrink-0" />
-                  <span>sivamresearchfoundation@gmail.com</span>
+                  <span>irdtrust@gmail.com</span>
                 </a>
               </li>
               <li className="pt-2 text-xs text-gray-500">

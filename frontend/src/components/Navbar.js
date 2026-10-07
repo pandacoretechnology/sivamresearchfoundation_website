@@ -32,21 +32,19 @@ const Navbar = () => {
         <div className="hidden lg:flex gap-8 sm:gap-10 md:gap-12 lg:gap-16 font-medium items-center">
           <Link
             href="/"
-            className={`hover:text-[#32B866] text-sm transition-colors ${
-              pathname === "/"
-                ? "text-[#32B866] font-semibold"
-                : "text-gray-700 hover:text-[#32B866]"
-            }`}
+            className={`hover:text-[#32B866] text-sm transition-colors ${pathname === "/"
+              ? "text-[#32B866] font-semibold"
+              : "text-gray-700 hover:text-[#32B866]"
+              }`}
           >
             Home
           </Link>
           <Link
             href="/about"
-            className={`hover:text-[#32B866] text-sm transition-colors ${
-              pathname === "/about"
-                ? "text-[#32B866] font-semibold"
-                : "text-gray-700 hover:text-[#32B866]"
-            }`}
+            className={`hover:text-[#32B866] text-sm transition-colors ${pathname === "/about"
+              ? "text-[#32B866] font-semibold"
+              : "text-gray-700 hover:text-[#32B866]"
+              }`}
           >
             About
           </Link>
@@ -57,13 +55,22 @@ const Navbar = () => {
 
           <Link
             href="/contact"
-            className={`hover:text-[#32B866] text-sm transition-colors ${
-              pathname === "/contact"
-                ? "text-[#32B866] font-semibold"
-                : "text-gray-700 hover:text-[#32B866]"
-            }`}
+            className={`hover:text-[#32B866] text-sm transition-colors ${pathname === "/contact"
+              ? "text-[#32B866] font-semibold"
+              : "text-gray-700 hover:text-[#32B866]"
+              }`}
           >
             Contact
+          </Link>
+        </div>
+
+        {/* Donate Button */}
+        <div className="hidden lg:flex font-medium items-center">
+          <Link
+            href="/donate"
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all text-sm whitespace-nowrap font-bold flex items-center gap-2"
+          >
+            <span>❤️</span> Donate
           </Link>
         </div>
 
@@ -84,19 +91,16 @@ const Navbar = () => {
           aria-label="Toggle menu"
         >
           <span
-            className={`w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
-              isOpen ? "rotate-45 translate-y-2" : ""
-            }`}
+            className={`w-6 h-0.5 bg-gray-800 transition-all duration-300 ${isOpen ? "rotate-45 translate-y-2" : ""
+              }`}
           />
           <span
-            className={`w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
-              isOpen ? "opacity-0" : ""
-            }`}
+            className={`w-6 h-0.5 bg-gray-800 transition-all duration-300 ${isOpen ? "opacity-0" : ""
+              }`}
           />
           <span
-            className={`w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
-              isOpen ? "-rotate-45 -translate-y-2" : ""
-            }`}
+            className={`w-6 h-0.5 bg-gray-800 transition-all duration-300 ${isOpen ? "-rotate-45 -translate-y-2" : ""
+              }`}
           />
         </button>
 
@@ -129,6 +133,13 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
               >
                 Contact
+              </Link>
+              <Link
+                href="/donate"
+                className="bg-red-600 text-white px-6 py-2.5 rounded-full hover:bg-red-700 transition-colors text-sm font-bold inline-block mx-auto mt-2 shadow-sm flex items-center justify-center gap-2"
+                onClick={() => setIsOpen(false)}
+              >
+                <span>❤️</span> Donate
               </Link>
               <Link
                 href="/contact"

@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "../../components/Navbar";
 import Hero from "./sections/Hero";
+import BoardMembers from "./sections/BoardMembers"
 import OurProfessional from "./sections/OurProfessional";
 import VisionMission from "./sections/VissionMission";
 import WhatWeDo from "./sections/WhatWeDo";
@@ -18,6 +19,9 @@ const Home = () => {
 
       {/*our vission section*/}
       <VisionMission />
+
+      
+      <BoardMembers />
 
       {/*our professional section*/}
       <OurProfessional />

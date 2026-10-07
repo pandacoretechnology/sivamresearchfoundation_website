@@ -11,16 +11,27 @@ class ComposerStaticInit9665093f09c6b665f3035c39b9a77a2e
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        '941748b3c8cae4466c827dfb5ca9602a' => __DIR__ . '/..' . '/rmccue/requests/library/Deprecated.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '13906c19e3d8fcd1341b24ed4d51cf72' => __DIR__ . '/..' . '/razorpay/razorpay/Deprecated.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'WpOrg\\Requests\\' => 15,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+        ),
+        'R' => 
+        array (
+            'Razorpay\\Tests\\' => 15,
+            'Razorpay\\Api\\' => 13,
         ),
         'P' => 
         array (
@@ -47,6 +58,10 @@ class ComposerStaticInit9665093f09c6b665f3035c39b9a77a2e
     );
 
     public static $prefixDirsPsr4 = array (
+        'WpOrg\\Requests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rmccue/requests/src',
+        ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
@@ -58,6 +73,14 @@ class ComposerStaticInit9665093f09c6b665f3035c39b9a77a2e
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Razorpay\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/razorpay/razorpay/tests',
+        ),
+        'Razorpay\\Api\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/razorpay/razorpay/src',
         ),
         'Psr\\Log\\' => 
         array (
@@ -752,6 +775,7 @@ class ComposerStaticInit9665093f09c6b665f3035c39b9a77a2e
         'Cloudinary\\Utils\\SignatureVerifier' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Utils/SignatureVerifier.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'Requests' => __DIR__ . '/..' . '/rmccue/requests/library/Requests.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',

@@ -74,6 +74,34 @@ export default function ServicesHub() {
       ],
       cta: "Explore Research & IJMHPS",
     },
+    {
+      href: "/services/research-and-publication",
+      icon: BookOpenIcon,
+      badge: "Scholarly Publishing & Science",
+      title: "Research Innovation & Publication (IJMHPS)",
+      description: "Advancing mental health science through interdisciplinary clinical research, programme evaluation, and our international peer-reviewed journal.",
+      features: [
+        "Interdisciplinary Research & Evaluations",
+        "Research Consultation & Statistical Support",
+        "IJMHPS Scholarly Peer-Reviewed Journal",
+        "Collaborations with Universities & Hospitals",
+      ],
+      cta: "Explore Research & IJMHPS",
+    },
+    {
+      href: "/services/research-and-publication",
+      icon: BookOpenIcon,
+      badge: "Scholarly Publishing & Science",
+      title: "Research Innovation & Publication (IJMHPS)",
+      description: "Advancing mental health science through interdisciplinary clinical research, programme evaluation, and our international peer-reviewed journal.",
+      features: [
+        "Interdisciplinary Research & Evaluations",
+        "Research Consultation & Statistical Support",
+        "IJMHPS Scholarly Peer-Reviewed Journal",
+        "Collaborations with Universities & Hospitals",
+      ],
+      cta: "Explore Research & IJMHPS",
+    },
   ];
 
   return (

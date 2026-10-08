@@ -104,7 +104,7 @@ export default function Dropdown() {
         <MenuItem>
           {({ focus }) => (
             <Link
-              href="/services/project"
+              href="/services/yoga_and_hb"
               className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/project"
                   ? "bg-emerald-50 text-[#0F6E57] font-semibold"
                   : focus
@@ -112,7 +112,7 @@ export default function Dropdown() {
                     : "text-gray-700"
                 }`}
             >
-              Project
+              Yoga & Human Being
             </Link>
           )}
         </MenuItem>

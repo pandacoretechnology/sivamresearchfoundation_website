@@ -5,7 +5,6 @@ import Navbar from '@/components/Navbar';
 import React, { useEffect, useState } from 'react';
 
 export default function DonationContent() {
-  const [frequency, setFrequency] = useState('one-time');
   const [selectedAmount, setSelectedAmount] = useState(1000);
   const [customAmount, setCustomAmount] = useState('');
 
@@ -20,27 +19,38 @@ export default function DonationContent() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [paymentId, setPaymentId] = useState('');
+  const [recentDonations, setRecentDonations] = useState([]);
 
+  // Load Razorpay script & Fetch recent donations ticker
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
     script.async = true;
     document.body.appendChild(script);
 
+    fetchRecentDonations();
+
     return () => {
       document.body.removeChild(script);
     };
   }, []);
 
-  const amounts =
-    frequency === 'one-time'
-      ? [500, 1000, 2500, 5000, 10000, 25000]
-      : [250, 500, 1000, 2500, 5000, 10000];
+  const fetchRecentDonations = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/api/donations/get-recent.php');
+      const data = await res.json();
+      if (data.success) {
+        setRecentDonations(data.donations);
+      }
+    } catch (err) {
+      console.error('Failed to fetch recent donations', err);
+    }
+  };
+
+  const amounts = [500, 1000, 2500, 5000, 10000, 25000];
 
   const currentAmount =
-    customAmount !== ''
-      ? Number(customAmount) || 0
-      : selectedAmount || 0;
+    customAmount !== '' ? Number(customAmount) || 0 : selectedAmount || 0;
 
   const impactDescriptions = {
     500: 'Helps provide essential food, education and community support.',
@@ -73,8 +83,13 @@ export default function DonationContent() {
       return;
     }
 
-    if (!formData.name.trim() || !formData.email.trim()) {
-      alert('Please provide your name and email address.');
+    if (!formData.anonymous && (!formData.name.trim() || !formData.phone.trim())) {
+      alert('Please provide your name and phone number, or check Anonymous.');
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      alert('Please provide your email address for receipts.');
       return;
     }
 
@@ -86,33 +101,17 @@ export default function DonationContent() {
     try {
       setIsProcessing(true);
 
-      /*
-       * IMPORTANT:
-       * Your backend should create the Razorpay order.
-       *
-       * POST /api/donations/create-order
-       *
-       * Body:
-       * {
-       *   amount: currentAmount,
-       *   frequency,
-       *   name,
-       *   email,
-       *   phone
-       * }
-       */
-
-      const orderResponse = await fetch('/api/donations/create-order', {
+      const orderResponse = await fetch('http://localhost:8000/api/donations/create-order.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           amount: currentAmount,
-          frequency,
-          name: formData.name,
+          name: formData.anonymous ? 'Anonymous' : formData.name,
           email: formData.email,
-          phone: formData.phone,
+          phone: formData.anonymous ? '' : formData.phone,
+          anonymous: formData.anonymous ? 1 : 0,
         }),
       });
 
@@ -127,39 +126,29 @@ export default function DonationContent() {
         amount: order.amount,
         currency: 'INR',
         name: 'HopeBridge Foundation',
-        description:
-          frequency === 'monthly'
-            ? 'Monthly Donation'
-            : 'One-Time Donation',
-
+        description: 'One-Time Donation',
         order_id: order.id,
-
         prefill: {
-          name: formData.name,
+          name: formData.anonymous ? 'Anonymous' : formData.name,
           email: formData.email,
-          contact: formData.phone,
+          contact: formData.anonymous ? '' : formData.phone,
         },
-
         notes: {
-          donation_type: frequency,
           anonymous: formData.anonymous ? 'yes' : 'no',
           message: formData.message,
         },
-
         theme: {
           color: '#059669',
         },
-
         modal: {
           ondismiss: () => {
             setIsProcessing(false);
           },
         },
-
         handler: async function (response) {
           try {
             const verifyResponse = await fetch(
-              '/api/donations/verify-payment',
+              'http://localhost:8000/api/donations/verify-payment.php',
               {
                 method: 'POST',
                 headers: {
@@ -170,8 +159,10 @@ export default function DonationContent() {
                   razorpay_payment_id: response.razorpay_payment_id,
                   razorpay_signature: response.razorpay_signature,
                   amount: currentAmount,
-                  frequency,
-                  donor: formData,
+                  donor: {
+                    ...formData,
+                    name: formData.anonymous ? 'Anonymous' : formData.name,
+                  },
                 }),
               }
             );
@@ -184,6 +175,7 @@ export default function DonationContent() {
 
             setPaymentId(response.razorpay_payment_id);
             setPaymentSuccess(true);
+            fetchRecentDonations(); // Refresh ticker list
           } catch (error) {
             console.error(error);
             alert(
@@ -196,16 +188,6 @@ export default function DonationContent() {
       };
 
       const razorpay = new window.Razorpay(options);
-
-      razorpay.on('payment.failed', function (response) {
-        console.error('Payment failed:', response.error);
-        alert(
-          response.error?.description ||
-            'Payment failed. Please try again.'
-        );
-        setIsProcessing(false);
-      });
-
       razorpay.open();
     } catch (error) {
       console.error(error);
@@ -221,12 +203,9 @@ export default function DonationContent() {
       <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/40 text-slate-900">
         <section className="px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
           <div className="mx-auto max-w-7xl">
-
             <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12">
-
               {/* LEFT */}
               <div className="space-y-8 lg:col-span-7">
-
                 <div>
                   <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-bold uppercase tracking-wider text-emerald-700">
                     <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
@@ -241,8 +220,8 @@ export default function DonationContent() {
                   </h1>
 
                   <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-                    Your contribution supports education, healthcare,
-                    clean water and sustainable community development.
+                    Your contribution supports education, healthcare, clean water
+                    and sustainable community development.
                   </p>
                 </div>
 
@@ -284,9 +263,7 @@ export default function DonationContent() {
                     >
                       <div className="mb-3 text-xl">{icon}</div>
                       <p className="text-sm font-bold">{title}</p>
-                      <p className="mt-1 text-xs text-slate-500">
-                        {subtitle}
-                      </p>
+                      <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
                     </div>
                   ))}
                 </div>
@@ -295,46 +272,17 @@ export default function DonationContent() {
               {/* FORM */}
               <div className="lg:col-span-5">
                 <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/10">
-
                   <div className="h-1.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-blue-600" />
 
                   <div className="p-6 sm:p-8">
-
                     <div className="mb-7">
-                      <h2 className="text-2xl font-black">
-                        Support Our Missions
-                      </h2>
+                      <h2 className="text-2xl font-black">Support Our Mission</h2>
                       <p className="mt-1 text-sm text-slate-500">
                         Choose your contribution amount
                       </p>
                     </div>
 
-                    {/* FREQUENCY */}
-                    <div className="mb-7 grid grid-cols-2 gap-1 rounded-2xl bg-slate-100 p-1">
-                      {[
-                        ['one-time', 'One-Time'],
-                        ['monthly', 'Monthly'],
-                      ].map(([value, label]) => (
-                        <button
-                          key={value}
-                          type="button"
-                          onClick={() => {
-                            setFrequency(value);
-                            setCustomAmount('');
-                          }}
-                          className={`rounded-xl py-3 text-sm font-bold transition ${
-                            frequency === value
-                              ? 'bg-white text-emerald-700 shadow-sm'
-                              : 'text-slate-500'
-                          }`}
-                        >
-                          {label}
-                        </button>
-                      ))}
-                    </div>
-
                     <form onSubmit={handleDonate} className="space-y-6">
-
                       {/* AMOUNTS */}
                       <div>
                         <label className="mb-3 block text-xs font-bold uppercase tracking-wider text-slate-500">
@@ -383,14 +331,33 @@ export default function DonationContent() {
 
                       {/* DETAILS */}
                       <div className="space-y-3 border-t border-slate-100 pt-5">
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
-                          Donor Details
-                        </label>
+                        <div className="flex items-center justify-between">
+                          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+                            Donor Details
+                          </label>
+                          <label className="flex cursor-pointer items-center gap-2 text-xs font-semibold text-emerald-700">
+                            <input
+                              type="checkbox"
+                              checked={formData.anonymous}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  anonymous: e.target.checked,
+                                  name: e.target.checked ? '' : formData.name,
+                                  phone: e.target.checked ? '' : formData.phone,
+                                })
+                              }
+                              className="h-4 w-4 rounded border-slate-300 text-emerald-600"
+                            />
+                            Make Anonymous
+                          </label>
+                        </div>
 
                         <input
-                          required
+                          required={!formData.anonymous}
+                          disabled={formData.anonymous}
                           type="text"
-                          placeholder="Full Name *"
+                          placeholder={formData.anonymous ? "Hidden (Anonymous)" : "Full Name *"}
                           value={formData.name}
                           onChange={(e) =>
                             setFormData({
@@ -398,13 +365,13 @@ export default function DonationContent() {
                               name: e.target.value,
                             })
                           }
-                          className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:bg-white"
+                          className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none disabled:bg-slate-100 disabled:text-slate-400 focus:border-emerald-500 focus:bg-white"
                         />
 
                         <input
                           required
                           type="email"
-                          placeholder="Email Address *"
+                          placeholder="Email Address * (for receipt)"
                           value={formData.email}
                           onChange={(e) =>
                             setFormData({
@@ -416,8 +383,9 @@ export default function DonationContent() {
                         />
 
                         <input
+                          disabled={formData.anonymous}
                           type="tel"
-                          placeholder="Phone Number"
+                          placeholder={formData.anonymous ? "Hidden (Anonymous)" : "Phone Number"}
                           value={formData.phone}
                           onChange={(e) =>
                             setFormData({
@@ -425,7 +393,7 @@ export default function DonationContent() {
                               phone: e.target.value,
                             })
                           }
-                          className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:bg-white"
+                          className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none disabled:bg-slate-100 disabled:text-slate-400 focus:border-emerald-500 focus:bg-white"
                         />
 
                         <textarea
@@ -440,24 +408,9 @@ export default function DonationContent() {
                           }
                           className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:bg-white"
                         />
-
-                        <label className="flex cursor-pointer items-center gap-2 text-xs text-slate-600">
-                          <input
-                            type="checkbox"
-                            checked={formData.anonymous}
-                            onChange={(e) =>
-                              setFormData({
-                                ...formData,
-                                anonymous: e.target.checked,
-                              })
-                            }
-                            className="h-4 w-4 rounded border-slate-300 text-emerald-600"
-                          />
-                          Make this donation anonymous
-                        </label>
                       </div>
 
-                      {/* PAY */}
+                      {/* PAY BUTTON */}
                       <button
                         disabled={isProcessing}
                         type="submit"
@@ -465,10 +418,29 @@ export default function DonationContent() {
                       >
                         {isProcessing
                           ? 'Opening Secure Checkout...'
-                          : `Donate ₹${currentAmount.toLocaleString(
-                              'en-IN'
-                            )}`}
+                          : `Donate ₹${currentAmount.toLocaleString('en-IN')}`}
                       </button>
+
+                      {/* AUTO-SCROLLING LIVE DONATIONS TICKER (Below Button) */}
+                      {recentDonations.length > 0 && (
+                        <div className="mt-6 overflow-hidden rounded-2xl border border-emerald-100 bg-emerald-50/50 p-3">
+                          <p className="mb-2 text-center text-[10px] font-bold uppercase tracking-wider text-emerald-700">
+                            ✨ Recent Contributions
+                          </p>
+                          <div className="relative w-full overflow-hidden whitespace-nowrap">
+                            <div className="inline-flex animate-marquee gap-6 text-xs text-slate-700">
+                              {recentDonations.concat(recentDonations).map((d, index) => (
+                                <div key={index} className="inline-flex items-center gap-2 rounded-xl bg-white px-3 py-1.5 shadow-sm">
+                                  <span className="font-bold text-emerald-600">{d.anonymous == 1 ? 'Anonymous' : d.name}</span>
+                                  <span>donated</span>
+                                  <span className="font-extrabold text-slate-900">₹{Number(d.amount).toLocaleString('en-IN')}</span>
+                                  {d.message && <span className="text-slate-400 italic">"{d.message}"</span>}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
                       <div className="flex justify-center gap-2 text-[11px] text-slate-400">
                         <span>🔒 Secure Razorpay Checkout</span>
@@ -483,11 +455,10 @@ export default function DonationContent() {
           </div>
         </section>
 
-        {/* SUCCESS */}
+        {/* SUCCESS MODAL */}
         {paymentSuccess && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm">
             <div className="w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-2xl">
-
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 text-4xl text-emerald-600">
                 ✓
               </div>
@@ -497,22 +468,18 @@ export default function DonationContent() {
               </p>
 
               <h3 className="mt-2 text-2xl font-black">
-                Thank You, {formData.name}!
+                Thank You, {formData.anonymous ? 'Supporter' : formData.name}!
               </h3>
 
               <p className="mt-3 text-sm leading-6 text-slate-600">
                 Your contribution of{' '}
-                <strong>
-                  ₹{currentAmount.toLocaleString('en-IN')}
-                </strong>{' '}
-                has been successfully received.
+                <strong>₹{currentAmount.toLocaleString('en-IN')}</strong> has
+                been successfully received.
               </p>
 
               {paymentId && (
                 <div className="mt-5 rounded-2xl bg-slate-50 p-4 text-left">
-                  <p className="text-xs text-slate-500">
-                    Razorpay Payment ID
-                  </p>
+                  <p className="text-xs text-slate-500">Razorpay Payment ID</p>
                   <p className="mt-1 break-all font-mono text-xs font-bold text-slate-800">
                     {paymentId}
                   </p>

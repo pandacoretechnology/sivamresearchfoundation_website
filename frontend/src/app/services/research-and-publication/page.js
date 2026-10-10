@@ -186,14 +186,14 @@ export default function Research() {
 
                 <div className="flex flex-wrap items-center gap-4">
                   <a
-                    href="mailto:sivamresearchfoundation@gmail.com?subject=IJMHPS%20Manuscript%20Submission"
+                    href="mailto:support@sivamresearchfoundation.org?subject=IJMHPS%20Manuscript%20Submission"
                     className="bg-[#38ef7d] hover:bg-[#2dd36f] text-gray-950 font-bold px-8 py-3.5 rounded-full text-sm shadow-md transition-all inline-flex items-center gap-2"
                   >
                     <EnvelopeIcon className="w-4 h-4" />
                     <span>Submit Manuscript / Inquire</span>
                   </a>
                   <a
-                    href="mailto:sivamresearchfoundation@gmail.com?subject=Editorial%20Board%20Inquiry"
+                    href="mailto:support@sivamresearchfoundation.org?subject=Editorial%20Board%20Inquiry"
                     className="border border-white/40 hover:bg-white/10 text-white font-medium px-8 py-3.5 rounded-full text-sm transition-colors inline-flex items-center gap-2"
                   >
                     <span>Join Reviewer Board</span>
@@ -245,7 +245,7 @@ export default function Research() {
                 Initiate Collaboration
               </Link>
               <a
-                href="mailto:sivamresearchfoundation@gmail.com"
+                href="mailto:support@sivamresearchfoundation.org"
                 className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-8 py-3.5 rounded-full font-semibold text-sm transition-all"
               >
                 Contact Editorial Office

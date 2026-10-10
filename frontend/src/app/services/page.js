@@ -75,7 +75,7 @@ export default function ServicesHub() {
       cta: "Explore Research & IJMHPS",
     },
     {
-      href: "/services/research-and-publication",
+      href: "/services/yoga-and-mental-health",
       icon: BookOpenIcon,
       badge: "Scholarly Publishing & Science",
       title: "Research Innovation & Publication (IJMHPS)",
@@ -89,7 +89,7 @@ export default function ServicesHub() {
       cta: "Explore Research & IJMHPS",
     },
     {
-      href: "/services/research-and-publication",
+      href: "/services/food-for-all",
       icon: BookOpenIcon,
       badge: "Scholarly Publishing & Science",
       title: "Research Innovation & Publication (IJMHPS)",

@@ -104,30 +104,30 @@ export default function Dropdown() {
         <MenuItem>
           {({ focus }) => (
             <Link
-              href="/services/yoga_and_hb"
-              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/project"
+              href="/services/yoga-and-mental-health"
+              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/yoga-and-mental-health"
                   ? "bg-emerald-50 text-[#0F6E57] font-semibold"
                   : focus
                     ? "bg-gray-50 text-gray-900"
                     : "text-gray-700"
                 }`}
             >
-              Yoga & Human Being
+              Yoga & Mental Health
             </Link>
           )}
         </MenuItem>
         <MenuItem>
           {({ focus }) => (
             <Link
-              href="/services/project"
-              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/project"
+              href="/services/food-for-all"
+              className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${pathname === "/services/food-for-all"
                   ? "bg-emerald-50 text-[#0F6E57] font-semibold"
                   : focus
                     ? "bg-gray-50 text-gray-900"
                     : "text-gray-700"
                 }`}
             >
-              Project
+              Food For All
             </Link>
           )}
         </MenuItem>

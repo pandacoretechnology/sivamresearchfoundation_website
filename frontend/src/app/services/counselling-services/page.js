@@ -239,7 +239,7 @@ export default function Counselling() {
                 <div className="space-y-3 text-sm">
                   <p className="flex items-center gap-3">
                     <EnvelopeIcon className="w-5 h-5 text-emerald-300 shrink-0" />
-                    <span>sivamresearchfoundation@gmail.com</span>
+                    <span>support@sivamresearchfoundation.org</span>
                   </p>
                   <p className="flex items-center gap-3">
                     <PhoneIcon className="w-5 h-5 text-emerald-300 shrink-0" />

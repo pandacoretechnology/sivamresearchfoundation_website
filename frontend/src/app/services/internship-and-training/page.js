@@ -127,7 +127,7 @@ export default function Internship() {
                 <ArrowRightIcon className="w-4 h-4" />
               </Link>
               <a
-                href="mailto:sivamresearchfoundation@gmail.com"
+                href="mailto:support@sivamresearchfoundation.org"
                 className="bg-[#38ef7d] text-gray-900 hover:bg-[#2dd36f] px-8 py-3.5 rounded-full font-semibold text-sm sm:text-base shadow-lg transition-all inline-flex items-center gap-2"
               >
                 <EnvelopeIcon className="w-4 h-4" />
@@ -267,7 +267,7 @@ export default function Internship() {
                 <ArrowRightIcon className="w-4 h-4" />
               </Link>
               <a
-                href="mailto:sivamresearchfoundation@gmail.com"
+                href="mailto:support@sivamresearchfoundation.org"
                 className="bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-3.5 rounded-full text-sm border border-white/20 transition-all inline-flex items-center gap-2"
               >
                 <EnvelopeIcon className="w-4 h-4" />

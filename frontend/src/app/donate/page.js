@@ -8,6 +8,9 @@ export default function DonationContent() {
   const [selectedAmount, setSelectedAmount] = useState(1000);
   const [customAmount, setCustomAmount] = useState('');
 
+  const api_url = process.env.NEXT_PUBLIC_API_BASE_URL;
+  console.log(api_url)
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -37,7 +40,7 @@ export default function DonationContent() {
 
   const fetchRecentDonations = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/donations/get-recent.php');
+      const res = await fetch(`${api_url}api/donations/get-recent.php`);
       const data = await res.json();
       if (data.success) {
         setRecentDonations(data.donations);
@@ -101,7 +104,7 @@ export default function DonationContent() {
     try {
       setIsProcessing(true);
 
-      const orderResponse = await fetch('http://localhost:8000/api/donations/create-order.php', {
+      const orderResponse = await fetch(`${api_url}api/donations/create-order.php`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -148,7 +151,7 @@ export default function DonationContent() {
         handler: async function (response) {
           try {
             const verifyResponse = await fetch(
-              'http://localhost:8000/api/donations/verify-payment.php',
+              `${api_url}api/donations/verify-payment.php`,
               {
                 method: 'POST',
                 headers: {

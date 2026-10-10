@@ -95,11 +95,11 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:sivamresearchfoundation@gmail.com"
+                  href="mailto:support@sivamresearchfoundation.org"
                   className="flex items-center gap-2 hover:text-[#0F6E57] transition-colors break-all"
                 >
                   <EnvelopeIcon className="w-4 h-4 text-[#0F6E57] shrink-0" />
-                  <span>irdtrust@gmail.com</span>
+                  <span>support@sivamresearchfoundation.org</span>
                 </a>
               </li>
               <li className="pt-2 text-xs text-gray-500">

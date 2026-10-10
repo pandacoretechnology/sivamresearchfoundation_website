@@ -199,16 +199,12 @@ export default function AdminPage() {
 
           {/* Backend Info & Back link */}
           <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col items-center gap-2 text-center">
-            {backendUrl && (
-              <span className="text-[11px] text-gray-400 font-mono">
-                API: {backendUrl}
-              </span>
-            )}
+            
             <Link
               href="/"
               className="text-xs font-medium text-gray-500 hover:text-[#0F6E57] transition-colors inline-flex items-center gap-1.5 mt-1"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5" fill="no ne" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
               <span>Back to main website</span>

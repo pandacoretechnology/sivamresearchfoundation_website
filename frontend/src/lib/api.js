@@ -6,7 +6,7 @@ export function getApiBaseUrl() {
   const envUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "");
 
   if (typeof window !== "undefined") {
-    // If NEXT_PUBLIC_API_BASE_URL is configured, adapt hostname if client is browsing from an IP/network
+    // If BACKEND_API_BASE_URL is configured, adapt hostname if client is browsing from an IP/network
     if (envUrl) {
       try {
         const urlObj = new URL(envUrl);

@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image
             src="/images/nav/logo_prim.png"
-            alt="Sivam Research Foundation Logo"
+            alt="Sivam Research Foundation"
             width={190}
             height={190}
             className="w-24 h-10 max-sm:w-40 max-sm:h-15 md:w-42 md:h-16 lg:w-45 lg:h-16 object-contain"
